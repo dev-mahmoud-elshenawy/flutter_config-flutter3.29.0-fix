@@ -20,6 +20,8 @@ class FlutterConfigPlugin(private val context: Context? = null): FlutterPlugin, 
 
   private lateinit var channel : MethodChannel
 
+  private var activity: android.app.Activity? = null
+
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     applicationContext = flutterPluginBinding.applicationContext
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_config")
@@ -29,6 +31,22 @@ class FlutterConfigPlugin(private val context: Context? = null): FlutterPlugin, 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
     applicationContext = null
+  }
+
+  override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    activity = binding.activity
+  }
+
+  override fun onDetachedFromActivity() {
+    activity = null
+  }
+
+  override fun onDetachedFromActivityForConfigChanges() {
+    activity = null
+  }
+
+  override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+    activity = binding.activity
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
