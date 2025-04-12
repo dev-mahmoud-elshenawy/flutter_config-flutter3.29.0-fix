@@ -25,7 +25,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace 'com.byneapp.flutter_config' 
+    namespace 'com.byneapp.flutter_config' // Add this line
     compileSdkVersion 29
 
     sourceSets {
